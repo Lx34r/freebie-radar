@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>喜加一雷达 · Epic / GOG / Unity / Fab 限免聚合</title>
+<meta name="description" content="一站扫齐 Epic Games、GOG、Unity Asset Store 与 Fab 的限时免费：12 区情报、PC / Android / iOS 三端覆盖、倒计时提醒、批量跳转官方领取。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<script>
+  (function () {
+    var mode = "auto";
+    try {
+      var saved = localStorage.getItem("fr-theme");
+      if (saved === "light" || saved === "dark" || saved === "auto") mode = saved;
+    } catch (e) {}
+    var eff = mode === "auto"
+      ? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : mode;
+    document.documentElement.setAttribute("data-theme", eff);
+    document.documentElement.setAttribute("data-theme-mode", mode);
+  })();
+</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="喜加一雷达 首页">
+    <span class="brand-radar" aria-hidden="true">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-opacity=".28" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="11.5" stroke="currentColor" stroke-opacity=".4" stroke-width="1.2"/>
+        <circle cx="20" cy="20" r="5" stroke="currentColor" stroke-opacity=".55" stroke-width="1"/>
+        <g class="radar-sweep-g">
+          <path d="M20 20 L20 2 A18 18 0 0 1 33 7.6 Z" fill="currentColor" fill-opacity=".35"/>
+          <line x1="20" y1="20" x2="20" y2="2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </g>
+        <circle class="radar-blip b1" cx="27" cy="13" r="2" fill="currentColor"/>
+        <circle class="radar-blip b2" cx="13" cy="24" r="1.6" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="brand-text">
+      <strong>喜加一雷达</strong>
+      <small>FREEBIE RADAR</small>
+    </span>
+  </a>
+
+  <nav class="nav-links" aria-label="页面导航">
+    <a href="#top" class="nav-link active" data-section="top">总览</a>
+    <a href="#epic" class="nav-link" data-section="epic">Epic 限免</a>
+    <a href="#gog" class="nav-link" data-section="gog">GOG 限免</a>
+    <a href="#unity" class="nav-link" data-section="unity">Unity 限免</a>
+    <a href="#fab" class="nav-link" data-section="fab">Fab 限免</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="icon-btn" id="theme-btn" type="button" title="主题：跟随系统" aria-label="切换主题">
+      <svg viewBox="0 0 24 24" class="i" aria-hidden="true"></svg>
+    </button>
+    <button class="icon-btn" id="refresh-btn" type="button" title="刷新数据" aria-label="刷新数据">
+      <svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="hero-kicker"><span class="live-dot" aria-hidden="true"></span>限免情报 · 实时扫描</p>
+      <h1 class="hero-title">四大平台限免，<em>一站扫齐</em>。</h1>
+      <p class="hero-sub">Epic 12 区三端限免、GOG 不定期礼物、Unity 每周精选、Fab 限时免费资源，勾选批量跳转官方商店，喜加一快人一步。</p>
+      <div class="hero-stats" id="hero-stats" aria-live="polite">
+        <div class="stat"><span class="stat-num" id="stat-active">–</span><span class="stat-label">正在进行</span></div>
+        <div class="stat"><span class="stat-num amber" id="stat-upcoming">–</span><span class="stat-label">即将推出</span></div>
+        <div class="stat"><span class="stat-num blue" id="stat-mobile">–</span><span class="stat-label">移动端限免</span></div>
+        <div class="stat"><span class="stat-num violet" id="stat-gog">–</span><span class="stat-label">GOG 礼物</span></div>
+        <div class="stat"><span class="stat-num cyan" id="stat-unity">–</span><span class="stat-label">Unity 资源</span></div>
+        <div class="stat"><span class="stat-num rose" id="stat-fab">–</span><span class="stat-label">Fab 资源</span></div>
+      </div>
+      <p class="hero-updated" id="last-updated">正在连接雷达…</p>
+    </div>
+    <div class="hero-radar" aria-hidden="true">
+      <div class="radar-ring r1"></div>
+      <div class="radar-ring r2"></div>
+      <div class="radar-ring r3"></div>
+      <div class="radar-cross"></div>
+      <div class="radar-sweep"></div>
+      <div class="radar-dot d1"></div>
+      <div class="radar-dot d2"></div>
+      <div class="radar-dot d3"></div>
+      <div class="radar-core"></div>
+    </div>
+  </section>
+
+  <section class="zone" id="epic">
+    <div class="zone-head">
+      <div class="zone-title">
+        <span class="zone-badge epic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 5.5v6.1c0 4.9 3.4 8.4 8 10.4 4.6-2 8-5.5 8-10.4V5.5L12 2Zm0 3.2 5 2.2v4.2c0 3.4-2.2 5.9-5 7.3-2.8-1.4-5-3.9-5-7.3V7.4l5-2.2Z"/></svg>
+        </span>
+        <div>
+          <h2>Epic Games · 限时免费</h2>
+          <p class="zone-sub" id="epic-sub">每周轮换 · 领取后永久入库</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="epic-bar" id="epic-bar" aria-label="Epic 领取工具栏">
+      <div class="epic-region-picker">
+        <span class="picker-label" id="region-picker-label">Epic 领取区域</span>
+        <div class="dropdown epic" id="region-dropdown">
+          <button class="dropdown-toggle" id="region-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="region-picker-label region-label">
+            <svg class="i globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9Z"/></svg>
+            <span id="region-label">美区</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="dropdown-items" id="region-items" role="listbox" aria-label="Epic 领取区域"></div>
+        </div>
+      </div>
+
+      <div class="selected-tray" id="selected-tray" aria-label="已选 Epic 游戏">
+        <span class="tray-hint" id="tray-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/></svg>
+          勾选或框选封面，加入批量领取
+        </span>
+      </div>
+
+      <div class="epic-bar-actions">
+        <button class="btn ghost" id="select-all-btn" type="button">
+          <svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="m4 12 5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          全选
+        </button>
+        <button class="btn ghost" id="view-orders-btn" type="button">
+          <svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 21V3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          查看订单
+        </button>
+        <button class="btn primary" id="claim-btn" type="button" disabled>
+          <svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z" fill="currentColor"/></svg>
+          批量领取 <span class="claim-count" id="claim-count">0</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="epic-content" aria-live="polite"></div>
+  </section>
+
+  <section class="zone" id="gog">
+    <div class="zone-head">
+      <div class="zone-title">
+        <span class="zone-badge gog" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-3.5 7.5A1.75 1.75 0 1 1 8.5 13a1.75 1.75 0 0 1 0-3.5Zm7 0A1.75 1.75 0 1 1 15.5 13a1.75 1.75 0 0 1 0-3.5ZM7 15.2c1.2 1.9 3 2.8 5 2.8s3.8-.9 5-2.8l-1.4-.9c-.9 1.4-2.2 2-3.6 2s-2.7-.6-3.6-2L7 15.2Z"/></svg>
+        </span>
+        <div>
+          <h2>GOG · 限时免费</h2>
+          <p class="zone-sub">不定期空降 · DRM-Free 永久入库</p>
+        </div>
+      </div>
+      <span class="zone-region violet">中国区</span>
+    </div>
+    <div id="gog-content" aria-live="polite"></div>
+  </section>
+
+  <section class="zone" id="unity">
+    <div class="zone-head">
+      <div class="zone-title">
+        <span class="zone-badge unity" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.3 6.5 3.6L12 11.5 5.5 7.9 12 4.3ZM5 9.6l6 3.3v6.8l-6-3.3V9.6Zm8 10.1v-6.8l6-3.3v6.8l-6 3.3Z"/></svg>
+        </span>
+        <div>
+          <h2>Unity Asset Store · 每周精选</h2>
+          <p class="zone-sub">每周轮换 · 结账输入优惠码免费获取</p>
+        </div>
+      </div>
+      <span class="zone-region cyan">全球</span>
+    </div>
+    <div id="unity-content" aria-live="polite"></div>
+  </section>
+
+  <section class="zone" id="fab">
+    <div class="zone-head">
+      <div class="zone-title">
+        <span class="zone-badge fab" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2.5 7v10L12 22l9.5-5V7L12 2Zm0 2.3 7 3.7-7 3.7-7-3.7 7-3.7ZM4.5 9.6l6.5 3.4v6.7l-6.5-3.4V9.6Zm8.5 10.1v-6.7l6.5-3.4v6.7l-6.5 3.4Z"/></svg>
+        </span>
+        <div>
+          <h2>Fab · Limited-Time Free</h2>
+          <p class="zone-sub">限时免费 · 3D 资源与游戏素材永久入库</p>
+        </div>
+      </div>
+      <span class="zone-region rose">全球</span>
+    </div>
+    <div id="fab-content" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <strong>喜加一雷达</strong>
+    <p>聚合公开限免情报，所有领取均在 Epic / GOG / Unity / Fab 官方页面完成，本站不接触你的账号。</p>
+  </div>
+  <div class="footer-meta">
+    <p>数据来源：<a href="https://www.dogfight360.com/tools/epic_free/" target="_blank" rel="noopener noreferrer">Dogfight360</a> · <a href="https://store.epicgames.com/zh-CN/free-games" target="_blank" rel="noopener noreferrer">Epic Games</a> · <a href="https://www.gog.com/" target="_blank" rel="noopener noreferrer">GOG</a> · <a href="https://assetstore.unity.com/zh-CN/publisher-sale" target="_blank" rel="noopener noreferrer">Unity Asset Store</a> · <a href="https://www.fab.com/limited-time-free" target="_blank" rel="noopener noreferrer">Fab</a></p>
+    <p>本站与上述平台无隶属关系 · 转载请注明数据来源</p>
+  </div>
+</footer>
+
+<div class="m-overlay" id="epic-modal" role="dialog" aria-modal="true" aria-labelledby="epic-modal-title" aria-hidden="true">
+  <div class="m-card">
+    <h3 class="m-title" id="epic-modal-title">确认批量领取</h3>
+    <p class="m-desc">即将跳转至 Epic 官方商店批量领取以下游戏（共 <strong id="modal-count">0</strong> 款）：</p>
+    <div class="modal-tray" id="modal-tray"></div>
+    <div class="m-block">
+      <div class="m-block-title">批量领取注意事项</div>
+      <ul>
+        <li>请勿勾选<b>已拥有</b>的游戏，否则 Epic 下单会报错</li>
+        <li>跳转前请先<b>登录 Epic 账号</b>，否则跳转后报错白屏</li>
+        <li>若领取跳转后白屏，可用 Epic 工具栏的「查看订单」检查是否已入库</li>
+      </ul>
+    </div>
+    <div class="m-actions">
+      <button class="btn ghost" type="button" data-close="epic-modal">取消</button>
+      <button class="btn primary" type="button" id="epic-modal-confirm">确认跳转</button>
+    </div>
+  </div>
+</div>
+
+<div class="m-overlay" id="gog-modal" role="dialog" aria-modal="true" aria-labelledby="gog-modal-title" aria-hidden="true">
+  <div class="m-card">
+    <h3 class="m-title" id="gog-modal-title">确认前往 GOG 一键领取</h3>
+    <p class="m-desc">GOG 一键领取接口会直接返回 JSON，不会跳转到用户端页面。领取后请自行<a class="m-link" href="https://www.gog.com/zh/account" target="_blank" rel="noopener noreferrer">查看已入库游戏</a>确认是否入库。</p>
+    <div class="m-block">
+      <div class="m-block-title">返回信息含义</div>
+      <ul class="json-list">
+        <li><span class="ok-tag">成功</span><code>{}</code></li>
+        <li><span class="warn-tag">未登录</span><code>{"message":"Unauthorized"}</code></li>
+        <li><span class="info-tag">已领取</span><code>{"message":"Already claimed"}</code></li>
+      </ul>
+    </div>
+    <div class="m-actions">
+      <button class="btn ghost" type="button" data-close="gog-modal">取消</button>
+      <button class="btn primary violet" type="button" id="gog-modal-confirm">继续领取</button>
+    </div>
+  </div>
+</div>
+
+<div class="region-overlay" id="region-overlay" aria-hidden="true">
+  <div class="region-loading">
+    <span class="spinner" aria-hidden="true"></span>
+    正在切换 Epic 区域…
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="drag-selector" aria-hidden="true"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

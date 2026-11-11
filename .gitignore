@@ -1,0 +1,21 @@
+# 依赖
+node_modules/
+
+# Qoder Sites 本地描述符（工具生成，含本地绑定，不入库）
+*.qoder.site
+
+# 本地调试脚本与原始样本（保留 dev/server.mjs 与 dev/fixture.json）
+dev/inspect-fab.mjs
+dev/inspect-fab2.mjs
+dev/test-fab.mjs
+dev/test-handler.mjs
+dev/test-unity.mjs
+dev/fab_ltf.html
+dev/fab_detail.txt
+
+# 日志与系统/编辑器杂项
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

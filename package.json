@@ -1,0 +1,14 @@
+{
+  "name": "freebie-radar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "喜加一雷达 · Epic / GOG / Unity / Fab 限时免费聚合",
+  "scripts": {
+    "sync": "node scripts/sync-data.mjs",
+    "dev": "node dev/server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
