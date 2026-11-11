@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generatedAt": 1794401495666,
+  "generatedAt": 1794403995506,
   "regions": {
     "US": {
       "ok": true,
@@ -118,7 +118,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401473907,
+      "fetchedAt": 1794403979596,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?US"
     },
@@ -210,7 +210,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401474145,
+      "fetchedAt": 1794403979645,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?CN"
     },
@@ -330,7 +330,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401474147,
+      "fetchedAt": 1794403979646,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?HK"
     },
@@ -422,7 +422,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401474151,
+      "fetchedAt": 1794403979647,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?TW"
     },
@@ -514,7 +514,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401479646,
+      "fetchedAt": 1794403985092,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?RU"
     },
@@ -606,7 +606,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401479762,
+      "fetchedAt": 1794403985196,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?JP"
     },
@@ -726,7 +726,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401481208,
+      "fetchedAt": 1794403985319,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?KR"
     },
@@ -846,7 +846,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401482531,
+      "fetchedAt": 1794403985409,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?SG"
     },
@@ -966,7 +966,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401484281,
+      "fetchedAt": 1794403989066,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?TR"
     },
@@ -1086,7 +1086,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401484469,
+      "fetchedAt": 1794403989678,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?AR"
     },
@@ -1178,7 +1178,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401488048,
+      "fetchedAt": 1794403990380,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?BR"
     },
@@ -1298,7 +1298,7 @@
           "selectable": true
         }
       ],
-      "fetchedAt": 1794401488406,
+      "fetchedAt": 1794403990411,
       "stale": false,
       "sourceUrl": "https://www.dogfight360.com/tools/epic_free/?AU"
     }
@@ -1310,9 +1310,9 @@
     "title": "GOG 限时免费游戏",
     "img": "",
     "claimUrl": "",
-    "updatedAt": "2026-11-11 20:51",
+    "updatedAt": "2026-11-11 21:33",
     "libraryUrl": "https://www.gog.com/zh/account",
-    "fetchedAt": 1794401493068,
+    "fetchedAt": 1794403994781,
     "stale": false,
     "sourceUrl": "https://www.dogfight360.com/tools/gog_free/"
   },
@@ -1327,7 +1327,7 @@
     "url": "https://assetstore.unity.com/packages/2d/characters/2d-minimal-character-maker-363620",
     "footnote": "* 促销及相关自由资源活动将于太平洋时间 2026 年 11 月 12 日上午 7:59 结束。",
     "endTime": 1794499200,
-    "fetchedAt": 1794401493068,
+    "fetchedAt": 1794403994781,
     "stale": false,
     "sourceUrl": "https://assetstore.unity.com/zh-CN/publisher-sale"
   },
@@ -1380,7 +1380,7 @@
       }
     ],
     "endTime": 1794927540,
-    "fetchedAt": 1794401493069,
+    "fetchedAt": 1794403994782,
     "stale": false,
     "sourceUrl": "https://www.fab.com/limited-time-free"
   }
