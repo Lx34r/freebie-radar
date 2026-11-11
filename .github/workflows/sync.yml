@@ -40,7 +40,7 @@ jobs:
           if git diff -U0 -- web/data.json \
             | grep -E '^[+-]' \
             | grep -vE '^(\+\+\+|---)' \
-            | grep -vE '"(generatedAt|fetchedAt)"' \
+            | grep -vE '"(generatedAt|fetchedAt|updatedAt)"' \
             | grep -q .; then
             git add web/data.json
             git commit -m "chore(sync): 定时同步限免数据"
