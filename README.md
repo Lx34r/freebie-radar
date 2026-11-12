@@ -10,17 +10,17 @@
 
 - **四平台聚合**：Epic、GOG、Unity、Fab 限免各成页签，一屏总览正在进行 / 即将推出 / 移动端等统计。
 - **Epic 12 区切换**：美 / 国 / 港 / 台 / 俄 / 日 / 韩 / 新 / 土 / 阿 / 巴 / 澳，区域选择仅作用于 Epic。
-- **批量领取**：勾选或框选封面加入托盘，一键跳转 Epic 官方下单；GOG 一键领取接口；Unity 优惠码复制；Fab 直达资源页。
+- **批量领取**：勾选封面加入托盘，一键跳转 Epic 官方下单；GOG 一键领取接口；Unity 优惠码复制；Fab 直达资源页。
 - **倒计时**：每张卡片实时跳动剩余时间，到期自动转「已结束」。
 - **明暗主题**：跟随系统自动匹配，也可手动三态切换（跟随系统 / 浅色 / 深色），选择本地持久化。
 
 ## 数据如何保持新鲜
 
-本站部署在 **GitHub Pages（纯静态）**，没有运行时服务器。限免数据由 GitHub Actions 定时抓取并写入 [`web/data.json`](web/data.json)，前端直接读取这份静态数据：
+本站部署在 **GitHub Pages（纯静态）**，没有运行时服务器。每次部署都在构建时抓取最新限免数据、烘焙进发布产物，前端直接读取这份静态数据：
 
 - [`scripts/sync-data.mjs`](scripts/sync-data.mjs) 抓取全部 12 区 Epic 与 GOG / Unity / Fab，解析后写入 `web/data.json`；某源抓取失败时沿用上一份好数据并标记 stale，避免上游抖动清空数据。
-- [`.github/workflows/sync.yml`](.github/workflows/sync.yml) 每 6 小时运行一次同步，仅当数据实质变化时提交，并触发部署。
-- [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) 将 `web/` 发布到 GitHub Pages。
+- [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) 在 push、每 6 小时定时、手动触发时运行：build 作业跑同步脚本生成最新 `web/data.json`，再用 **Artifact** 把整个 `web/` 传给 deploy 作业发布到 Pages。全程不向仓库提交，机器人不会污染提交记录。
+- 仓库里的 [`web/data.json`](web/data.json) 只作为本地开发与抓取失败时的降级种子；线上数据始终来自每次构建的实时抓取。
 
 解析逻辑集中在 [`functions/parsers.mjs`](functions/parsers.mjs)，被抓取脚本与可选的实时 Function 共用。
 
@@ -44,7 +44,7 @@ web/                 静态前端（index.html / styles.css / app.js / favicon.s
 functions/           parsers.mjs 共享解析；handler.ts + index.ts 实时取数 Function（Qoder Sites）
 scripts/sync-data.mjs  构建时数据同步脚本
 dev/server.mjs       本地预览服务器；dev/fixture.json 离线夹具
-.github/workflows/   deploy.yml 部署；sync.yml 定时同步
+.github/workflows/   deploy.yml 构建时同步 + 部署（Artifact 传递，无自动提交）
 ```
 
 ## 数据来源

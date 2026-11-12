@@ -412,6 +412,10 @@ function renderUnity() {
       ${img ? `<div class="unity-bg"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async"></div>` : ""}
       <div class="unity-scrim" aria-hidden="true"></div>
       <div class="unity-callout-grid">
+        <div class="deadline-badge">
+          <span class="deadline-label">距离领取截止</span>
+          <div class="countdown" id="unity-countdown" aria-live="off"></div>
+        </div>
         <div class="unity-copy">
           <span class="unity-caption">${escapeHtml(unity.caption || "发布者资源赠送")}</span>
           <h3 class="unity-title">${escapeHtml(unity.title)}</h3>
@@ -423,10 +427,6 @@ function renderUnity() {
               <svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="M9 9h10v10H9zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>` : ""}
-          <div class="unity-countdown-wrap">
-            <p class="gog-countdown-label">距离领取截止</p>
-            <div class="countdown cyan" id="unity-countdown" aria-live="off"></div>
-          </div>
         </div>
         <div class="unity-cta">
           <a class="btn primary cyan big" href="${escapeHtml(unity.url)}" target="_blank" rel="noopener noreferrer">
@@ -516,9 +516,9 @@ function renderFab() {
         <span class="fab-caption">Limited-Time Free</span>
         <span class="fab-head-note">本期 <b>${items.length}</b> 款资源 · 领取后永久入库</span>
       </div>
-      <div class="fab-countdown-wrap">
-        <p class="gog-countdown-label">距离本期截止</p>
-        <div class="countdown rose" id="fab-countdown" aria-live="off"></div>
+      <div class="deadline-badge">
+        <span class="deadline-label">距离本期截止</span>
+        <div class="countdown" id="fab-countdown" aria-live="off"></div>
       </div>
     </div>
     <div class="fab-grid">${items.map((it, i) => fabCardHtml(it, i)).join("")}</div>
@@ -860,7 +860,6 @@ function bindCards(host) {
   });
   $$(".game-card.selectable", host).forEach((card) => {
     card.addEventListener("click", (e) => {
-      if (isDragActive) return;
       if (e.target.closest(".game-link-btn") || e.target.classList.contains("game-checkbox")) return;
       const cb = card.querySelector(".game-checkbox");
       if (!cb) return;
@@ -877,76 +876,6 @@ function bindRetry(host) {
     btn.addEventListener("click", () => loadAll(false, true));
   });
 }
-
-/* ===== 框选 ===== */
-let isDragActive = false;
-(function initMarquee() {
-  let startX = 0, startY = 0, isSelecting = false;
-  let previouslyChecked = new Set();
-  const dragSelector = $("#drag-selector");
-
-  document.addEventListener("mousedown", (e) => {
-    if (e.button !== 0) return;
-    if (e.target.closest("button, a, input, .dropdown, .epic-bar, .m-card, .selected-tray, .nav, .gog-panel, .unity-panel, .fab-panel")) return;
-    startX = e.clientX;
-    startY = e.clientY;
-    isSelecting = false;
-    isDragActive = false;
-    previouslyChecked = new Set();
-    $$(".game-checkbox:checked").forEach((cb) => {
-      const card = cb.closest(".game-card");
-      if (card) previouslyChecked.add(keyOf(card));
-    });
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
-  });
-
-  function onMove(e) {
-    const dx = e.clientX - startX, dy = e.clientY - startY;
-    if (!isSelecting && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-      isSelecting = true;
-      isDragActive = true;
-      dragSelector.style.display = "block";
-    }
-    if (!isSelecting) return;
-    const left = Math.min(startX, e.clientX), top = Math.min(startY, e.clientY);
-    const width = Math.abs(dx), height = Math.abs(dy);
-    Object.assign(dragSelector.style, { left: left + "px", top: top + "px", width: width + "px", height: height + "px" });
-    const selRect = { left, top, right: left + width, bottom: top + height };
-    $$(".game-card.selectable").forEach((card) => {
-      const cb = card.querySelector(".game-checkbox");
-      if (!cb) return;
-      const r = card.getBoundingClientRect();
-      const overlap = !(r.right < selRect.left || r.left > selRect.right || r.bottom < selRect.top || r.top > selRect.bottom);
-      if (overlap && !cb.checked) {
-        cb.checked = true;
-        card.classList.add("selected");
-      }
-    });
-  }
-
-  function onUp() {
-    document.removeEventListener("mousemove", onMove);
-    document.removeEventListener("mouseup", onUp);
-    if (isSelecting) {
-      dragSelector.style.display = "none";
-      isSelecting = false;
-      const newly = [];
-      const seen = new Set();
-      $$(".game-checkbox:checked").forEach((cb) => {
-        const card = cb.closest(".game-card");
-        if (!card) return;
-        const key = keyOf(card);
-        if (!previouslyChecked.has(key) && !seen.has(key)) {
-          seen.add(key);
-          newly.push(card);
-        }
-      });
-      syncSelection({ flyNew: newly, stagger: true });
-    }
-    setTimeout(() => { isDragActive = false; }, 50);
-  }
-})();
 
 /* ===== 弹窗 ===== */
 let pendingEpicUrl = "";
