@@ -1,11 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-  <rect width="40" height="40" rx="9" fill="#fafaf9"/>
-  <circle cx="20" cy="20" r="15" fill="none" stroke="#1c1917" stroke-opacity=".25" stroke-width="2"/>
-  <circle cx="20" cy="20" r="9.5" fill="none" stroke="#1c1917" stroke-opacity=".35" stroke-width="1.6"/>
-  <circle cx="20" cy="20" r="4" fill="none" stroke="#1c1917" stroke-opacity=".45" stroke-width="1.4"/>
-  <path d="M20 20 L20 5 A15 15 0 0 1 30.6 9.4 Z" fill="#b45309" fill-opacity=".4"/>
-  <line x1="20" y1="20" x2="20" y2="5" stroke="#b45309" stroke-width="2.2" stroke-linecap="round"/>
-  <circle cx="26" cy="13" r="2.4" fill="#b45309"/>
-  <circle cx="13" cy="25" r="1.8" fill="#1c1917" fill-opacity=".55"/>
-  <circle cx="20" cy="20" r="1.6" fill="#1c1917"/>
+  <style>
+    .bg{fill:#fafaf9}
+    .ink{stroke:#1c1917}
+    .inkf{fill:#1c1917}
+    .acc{fill:#b45309}
+    .accs{stroke:#b45309}
+    @media (prefers-color-scheme: dark){
+      .bg{fill:#1c1a19}
+      .ink{stroke:#f5f5f4}
+      .inkf{fill:#f5f5f4}
+      .acc{fill:#d97706}
+      .accs{stroke:#d97706}
+    }
+  </style>
+  <rect class="bg" width="40" height="40" rx="9"/>
+  <circle class="ink" cx="20" cy="20" r="15" fill="none" stroke-opacity=".25" stroke-width="2"/>
+  <circle class="ink" cx="20" cy="20" r="9.5" fill="none" stroke-opacity=".35" stroke-width="1.6"/>
+  <circle class="ink" cx="20" cy="20" r="4" fill="none" stroke-opacity=".45" stroke-width="1.4"/>
+  <path class="acc" d="M20 20 L20 5 A15 15 0 0 1 30.6 9.4 Z" fill-opacity=".4"/>
+  <line class="accs" x1="20" y1="20" x2="20" y2="5" stroke-width="2.2" stroke-linecap="round"/>
+  <circle class="acc" cx="26" cy="13" r="2.4"/>
+  <circle class="inkf" cx="13" cy="25" r="1.8" fill-opacity=".55"/>
+  <circle class="inkf" cx="20" cy="20" r="1.6"/>
 </svg>

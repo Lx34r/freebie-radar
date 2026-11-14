@@ -47,9 +47,29 @@ const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
 function effectiveTheme() {
   return state.theme === "auto" ? (themeMedia.matches ? "dark" : "light") : state.theme;
 }
+const FAVICON_COLORS = {
+  light: { bg: "#fafaf9", ink: "#1c1917", accent: "#b45309" },
+  dark: { bg: "#1c1a19", ink: "#f5f5f4", accent: "#d97706" },
+};
+function faviconSvg(theme) {
+  const c = FAVICON_COLORS[theme] || FAVICON_COLORS.light;
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">'
+    + '<rect width="40" height="40" rx="9" fill="' + c.bg + '"/>'
+    + '<g fill="none" stroke="' + c.ink + '"><circle cx="20" cy="20" r="15" stroke-opacity=".25" stroke-width="2"/><circle cx="20" cy="20" r="9.5" stroke-opacity=".35" stroke-width="1.6"/><circle cx="20" cy="20" r="4" stroke-opacity=".45" stroke-width="1.4"/></g>'
+    + '<path d="M20 20 L20 5 A15 15 0 0 1 30.6 9.4 Z" fill="' + c.accent + '" fill-opacity=".4"/>'
+    + '<line x1="20" y1="20" x2="20" y2="5" stroke="' + c.accent + '" stroke-width="2.2" stroke-linecap="round"/>'
+    + '<circle cx="26" cy="13" r="2.4" fill="' + c.accent + '"/>'
+    + '<circle cx="13" cy="25" r="1.8" fill="' + c.ink + '" fill-opacity=".55"/>'
+    + '<circle cx="20" cy="20" r="1.6" fill="' + c.ink + '"/></svg>';
+}
+function applyFavicon() {
+  const link = document.querySelector('link[rel=icon]');
+  if (link) link.href = "data:image/svg+xml," + encodeURIComponent(faviconSvg(effectiveTheme()));
+}
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", effectiveTheme());
   document.documentElement.setAttribute("data-theme-mode", state.theme);
+  applyFavicon();
   const btn = $("#theme-btn");
   if (!btn) return;
   const next = THEME_ORDER[(THEME_ORDER.indexOf(state.theme) + 1) % THEME_ORDER.length];

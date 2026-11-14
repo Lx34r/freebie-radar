@@ -5,10 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>喜加一雷达 · Epic / GOG / Unity / Fab 限免聚合</title>
 <meta name="description" content="一站扫齐 Epic Games、GOG、Unity Asset Store 与 Fab 的限时免费：12 区情报、PC / Android / iOS 三端覆盖、倒计时提醒、批量跳转官方领取。">
-<link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<script>
+  // 字体异步加载：不阻塞首屏与 load；网络不可达时回退系统字体
+  window.addEventListener("load", function () {
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500&display=swap";
+    l.media = "print";
+    l.onload = function () { l.media = "all"; };
+    document.head.appendChild(l);
+  });
+</script>
 <link rel="stylesheet" href="styles.css">
 <script>
   (function () {
